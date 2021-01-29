@@ -1,0 +1,16 @@
+/* Clearfix for field */
+.rwmb-field:not(:last-of-type){
+    margin: 0 0 1rem;
+}
+/* jQuery validation */
+p.rwmb-error {
+    color: #dc3545;
+	margin: .25rem 0 0;
+    font-size: 80%;
+}
+input.rwmb-error.rwmb-error,
+textarea.rwmb-error,
+select.rwmb-error {
+    border-color: #ced4da;
+	background: #fff;
+}

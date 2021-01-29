@@ -1,0 +1,9 @@
+.rwmb-row:not(:last-of-type) {
+    margin-bottom: 1rem;
+}
+.rwmb-column .rwmb-label {
+    margin-bottom: 0;
+}
+.rwmb-column .rwmb-label ~ .rwmb-input.custom-control {
+    padding-left: 1.5rem;
+}

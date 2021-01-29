@@ -1,0 +1,111 @@
+
+/* Floating Labels
+-------------------------------------------------- */
+
+.ifwp-floating-labels {
+    display: block;
+    position: relative;
+}
+
+.ifwp-floating-labels input,
+.ifwp-floating-labels label {
+    height: 3.125rem;
+    padding: .75rem;
+}
+
+.ifwp-floating-labels > textarea {
+    height: 6.25rem;
+    padding: .75rem;
+    resize: none;
+    overflow: hidden;
+}
+
+.ifwp-floating-labels select {
+    height: 3.125rem;
+    padding: .75rem;
+}
+
+.ifwp-floating-labels label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    margin-bottom: 0; /* Override default `<label>` margin */
+    line-height: 1.5;
+    color: var(--gray-dark);
+    pointer-events: none;
+    cursor: text; /* Match the input under the label */
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    transition: all .1s ease-in-out;
+}
+
+.ifwp-floating-labels input::-webkit-input-placeholder,
+.ifwp-floating-labels textarea::-webkit-input-placeholder {
+    color: transparent;
+}
+
+.ifwp-floating-labels input::-moz-placeholder,
+.ifwp-floating-labels textarea::-moz-placeholder {
+    color: transparent;
+}
+
+.ifwp-floating-labels input::placeholder,
+.ifwp-floating-labels textarea::placeholder {
+    color: transparent;
+}
+
+.ifwp-floating-labels input:not(:-moz-placeholder-shown),
+.ifwp-floating-labels textarea:not(:-moz-placeholder-shown) {
+    padding-top: 1.25rem;
+    padding-bottom: .25rem;
+}
+
+.ifwp-floating-labels input:not(:placeholder-shown),
+.ifwp-floating-labels textarea:not(:placeholder-shown) {
+    padding-top: 1.25rem;
+    padding-bottom: .25rem;
+}
+
+.ifwp-floating-labels input:-webkit-autofill,
+.ifwp-floating-labels textarea:-webkit-autofill {
+    padding-top: 1.25rem;
+    padding-bottom: .25rem;
+}
+
+.ifwp-floating-labels select.placeholder-hidden {
+    padding-top: 1.25rem;
+    padding-bottom: .25rem;
+}
+
+.ifwp-floating-labels input:not(:-moz-placeholder-shown) ~ label,
+.ifwp-floating-labels textarea:not(:-moz-placeholder-shown) ~ label {
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+    font-size: 12px;
+    color: var(--gray);
+}
+
+.ifwp-floating-labels input:not(:placeholder-shown) ~ label,
+.ifwp-floating-labels textarea:not(:placeholder-shown) ~ label {
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+    font-size: 12px;
+    color: var(--gray);
+}
+
+.ifwp-floating-labels input:-webkit-autofill ~ label,
+.ifwp-floating-labels textarea:-webkit-autofill ~ label {
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+    font-size: 12px;
+    color: var(--gray);
+}
+
+.ifwp-floating-labels select.placeholder-hidden ~ label {
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+    font-size: 12px;
+    color: var(--gray);
+}
