@@ -70,7 +70,7 @@ if(!class_exists('IFWP_MB_B4')){
 
         // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-        protected static function floating_labels($field = [], $fallback = false){
+        protected static function floating_labels($field = [], $fallback = true){
             if(isset($field['floating_labels'])){
                 return ($field['floating_labels'] === 'false' ? false : boolval($field['floating_labels']));
             }
