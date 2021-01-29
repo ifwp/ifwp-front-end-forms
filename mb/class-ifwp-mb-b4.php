@@ -418,7 +418,7 @@ if(!class_exists('IFWP_MB_B4')){
                     if($field['type'] == 'file'){
                         $field['max_file_uploads'] = 1;
                     }
-                    if($field['type'] == 'select_advanced'){
+                    if($field['type'] == 'select_advanced' or (in_array($field['type'], ['post', 'taxonomy', 'taxonomy_advanced', 'user']) and isset($field['field_type']) and $field['field_type'] == 'select_advanced')){
                         $field['js_options']['theme'] = 'bootstrap';
                         $size = self::size($field);
                         if($size){
