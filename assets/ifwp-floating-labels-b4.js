@@ -1,6 +1,23 @@
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+if(typeof ifwp_floating_labels !== 'function'){
+    function ifwp_floating_labels(){
+        if(jQuery('.ifwp-floating-labels > textarea').length){
+            jQuery('.ifwp-floating-labels > textarea').each(function(){
+                ifwp_floating_labels_textarea(this);
+            });
+        }
+        if(jQuery('.ifwp-floating-labels > select').length){
+            jQuery('.ifwp-floating-labels > select').each(function(){
+                ifwp_floating_labels_select(this);
+            });
+        }
+    }
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 if(typeof ifwp_floating_labels_select !== 'function'){
     function ifwp_floating_labels_select(select){
         if(jQuery(select).val() == ''){
@@ -16,23 +33,6 @@ if(typeof ifwp_floating_labels_select !== 'function'){
 if(typeof ifwp_floating_labels_textarea !== 'function'){
     function ifwp_floating_labels_textarea(textarea){
         jQuery(textarea).height(parseInt(jQuery(textarea).data('element'))).height(textarea.scrollHeight - parseInt(jQuery(textarea).data('padding')));
-    }
-}
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-if(typeof ifwp_floating_labels !== 'function'){
-    function ifwp_floating_labels(){
-        if(jQuery('.ifwp-floating-labels > textarea').length){
-            jQuery('.ifwp-floating-labels > textarea').each(function(){
-                ifwp_floating_labels_textarea(this);
-            });
-        }
-        if(jQuery('.ifwp-floating-labels > select').length){
-            jQuery('.ifwp-floating-labels > select').each(function(){
-                ifwp_floating_labels_select(this);
-            });
-        }
     }
 }
 
