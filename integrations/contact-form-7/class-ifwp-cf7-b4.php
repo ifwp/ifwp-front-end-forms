@@ -41,8 +41,7 @@ if(!class_exists('IFWP_CF7_B4')){
 
         // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-        protected static function select($tag = null){
-            $html = wpcf7_select_form_tag_handler($tag);
+        protected static function select($html = '', $tag = null){
             $html = str_get_html($tag);
             $floating_labels = self::floating_labels($tag);
             $placeholder = self::placeholder($tag);
@@ -80,8 +79,7 @@ if(!class_exists('IFWP_CF7_B4')){
 
         // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-        protected static function text($tag = null){
-            $html = wpcf7_text_form_tag_handler($tag);
+        protected static function text($html = '', $tag = null){
             $html = str_get_html($tag);
             $floating_labels = self::floating_labels($tag);
             $placeholder = self::placeholder($tag);
@@ -105,8 +103,7 @@ if(!class_exists('IFWP_CF7_B4')){
 
         // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-        protected static function textarea($tag = null){
-            $html = wpcf7_textarea_form_tag_handler($tag);
+        protected static function textarea($html = '', $tag = null){
             $html = str_get_html($tag);
             $floating_labels = self::floating_labels($tag);
             $placeholder = self::placeholder($tag);
@@ -143,14 +140,23 @@ if(!class_exists('IFWP_CF7_B4')){
         // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         public static function init(){
-            wpcf7_add_form_tag(['select', 'select*'], [__CLASS__, 'select'], [
+            wpcf7_add_form_tag(['select', 'select*'], function($tag){
+                $html = wpcf7_select_form_tag_handler($tag);
+                return self::select($html, $tag);
+            }, [
         		'name-attr' => true,
                 'selectable-values' => true,
         	]);
-            wpcf7_add_form_tag(['text', 'text*', 'email', 'email*', 'url', 'url*', 'tel', 'tel*'], [__CLASS__, 'text'], [
+            wpcf7_add_form_tag(['text', 'text*', 'email', 'email*', 'url', 'url*', 'tel', 'tel*'], function($tag){
+                $html = wpcf7_text_form_tag_handler($tag);
+                return self::text($html, $tag);
+            }, [
         		'name-attr' => true,
         	]);
-            wpcf7_add_form_tag(['textarea', 'textarea*'], [__CLASS__, 'textarea'], [
+            wpcf7_add_form_tag(['textarea', 'textarea*'], function($tag){
+                $html = wpcf7_textarea_form_tag_handler($tag);
+                return self::textarea($html, $tag);
+            }, [
         		'name-attr' => true,
         	]);
         }
