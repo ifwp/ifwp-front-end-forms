@@ -21,7 +21,7 @@ if(!class_exists('IFWP_CF7_B4')){
 
         protected static function placeholder($tag = null, $fallback = ''){
             switch(true){
-                case in_array($tag->basetype, ['text', 'email', 'url', 'tel']):
+                case in_array($tag->basetype, ['text', 'email', 'url', 'tel', 'textarea']):
                     if($tag->has_option('placeholder') or $tag->has_option('watermark')){
                         if($tag->values){
                             return reset($tag->values);
