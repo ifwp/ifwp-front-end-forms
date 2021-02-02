@@ -42,7 +42,7 @@ if(!class_exists('IFWP_CF7_B4')){
         // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         protected static function select($html = '', $tag = null){
-            $html = str_get_html($tag);
+            $html = str_get_html($html);
             $floating_labels = self::floating_labels($tag);
             $placeholder = self::placeholder($tag);
             if($floating_labels and $placeholder){
@@ -80,7 +80,7 @@ if(!class_exists('IFWP_CF7_B4')){
         // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         protected static function text($html = '', $tag = null){
-            $html = str_get_html($tag);
+            $html = str_get_html($html);
             $floating_labels = self::floating_labels($tag);
             $placeholder = self::placeholder($tag);
             if($floating_labels and $placeholder){
@@ -104,7 +104,7 @@ if(!class_exists('IFWP_CF7_B4')){
         // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         protected static function textarea($html = '', $tag = null){
-            $html = str_get_html($tag);
+            $html = str_get_html($html);
             $floating_labels = self::floating_labels($tag);
             $placeholder = self::placeholder($tag);
             if($floating_labels and $placeholder){
