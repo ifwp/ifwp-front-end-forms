@@ -9,10 +9,79 @@ if(!class_exists('IFWP_CF7_B4')){
         //
         // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+        protected static function browse($tag = null, $fallback = ''){
+			if($tag->has_option('ifwp_browse')){
+                return $tag->get_option('ifwp_browse', '', true);
+            }
+            if(!$fallback){
+                $fallback = __('Select');
+            }
+            return $fallback;
+        }
+
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        protected static function checkbox($html = '', $tag = null){
+            $html = str_get_html($html);
+			$type = (in_array($tag->basetype, ['checkbox', 'radio']) ? $tag->basetype : 'checkbox');
+			foreach($html->find('.wpcf7-list-item') as $li){
+				$li->addClass('custom-control custom-' . $type);
+				if(self::inline($tag)){
+                    $li->addClass('custom-control-inline');
+                }
+				$input = $li->find('input', 0);
+				$input->addClass('custom-control-input');
+				$input->id = $tag->name . '_' . sanitize_title($input->value);
+				$label = $li->find('.wpcf7-list-item-label', 0);
+				$label->addClass('custom-control-label');
+				$label->for = $input->id;
+				$label->tag = 'label';
+				$li->innertext = $input->outertext . $label->outertext;
+			}
+            return $html;
+        }
+
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        protected static function file($html = '', $tag = null){
+            $html = str_get_html($html);
+            $wrapper = $html->find('.wpcf7-form-control-wrap', 0);
+            $wrapper->addClass('custom-file');
+            $input = $wrapper->find('input', 0);
+            $input->addClass('custom-file-input');
+			$input->id = $tag->name;
+            $input->outertext = $input->outertext . '<label class="custom-file-label" for="' . $input->id . '" data-browse="' . self::browse($tag) . '">' . self::label($tag) . '</label>';
+        	return $html;
+        }
+
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
         protected static function floating_labels($tag = null, $fallback = true){
             if($tag->has_option('floating_labels')){
                 $floating_labels = $tag->get_option('floating_labels', '', true);
-                return ($floating_labels === 'false' ? false : boolval($floating_labels));
+				return (in_array($floating_labels, ['off', 'false']) ? false : boolval($floating_labels));
+            }
+            return $fallback;
+        }
+
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        protected static function inline($tag = null, $fallback = false){
+            if($tag->has_option('inline')){
+                $inline = $tag->get_option('inline', '', true);
+				return (in_array($inline, ['off', 'false']) ? false : boolval($inline));
+            }
+            return $fallback;
+        }
+
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        protected static function label($tag = null, $fallback = ''){
+			if($tag->has_option('ifwp_label')){
+                return $tag->get_option('ifwp_label', '', true);
+            }
+            if(!$fallback){
+                $fallback = __('Select Files');
             }
             return $fallback;
         }
@@ -134,13 +203,52 @@ if(!class_exists('IFWP_CF7_B4')){
         // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         public static function enqueue_scripts(){
-            wp_enqueue_script('ifwp-cf7-b4', plugin_dir_url(__FILE__) . 'ifwp-cf7-b4.js', ['contact-form-7'], filemtime(plugin_dir_path(__FILE__) . 'ifwp-cf7-b4.js'), true);
+            wp_enqueue_style('ifwp-cf7-b4', plugin_dir_url(__FILE__) . 'ifwp-cf7-b4.css', ['contact-form-7'], filemtime(plugin_dir_path(__FILE__) . 'ifwp-cf7-b4.css'));
+			wp_enqueue_script('ifwp-cf7-b4', plugin_dir_url(__FILE__) . 'ifwp-cf7-b4.js', ['contact-form-7'], filemtime(plugin_dir_path(__FILE__) . 'ifwp-cf7-b4.js'), true);
         }
 
         // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         public static function init(){
-            wpcf7_add_form_tag(['select', 'select*'], function($tag){
+			 wpcf7_add_form_tag('acceptance', function($tag){
+                $html = wpcf7_acceptance_form_tag_handler($tag);
+                return self::checkbox($html, $tag);
+            }, [
+        		'name-attr' => true,
+        	]);
+            wpcf7_add_form_tag(['checkbox', 'checkbox*', 'radio', 'radio*'], function($tag){
+                $html = wpcf7_checkbox_form_tag_handler($tag);
+                return self::checkbox($html, $tag);
+            }, [
+        		'name-attr' => true,
+                'selectable-values' => true,
+				'multiple-controls-container' => true,
+        	]);
+			wpcf7_add_form_tag(['date', 'date*'], function($tag){
+                $html = wpcf7_date_form_tag_handler($tag);
+                return self::text($html, $tag);
+            }, [
+        		'name-attr' => true,
+        	]);
+			wpcf7_add_form_tag(['file', 'file*'], function($tag){
+                $html = wpcf7_file_form_tag_handler($tag);
+                return self::file($html, $tag);
+            }, [
+        		'name-attr' => true,
+                'file-uploading' => true,
+        	]);
+			wpcf7_add_form_tag(['number', 'number*'], function($tag){
+                $html = wpcf7_number_form_tag_handler($tag);
+				return self::text($html, $tag);
+            }, [
+        		'name-attr' => true,
+        	]);
+			wpcf7_add_form_tag(['range', 'range*'], function($tag){
+                return wpcf7_number_form_tag_handler($tag);
+            }, [
+        		'name-attr' => true,
+        	]);
+			wpcf7_add_form_tag(['select', 'select*'], function($tag){
                 $html = wpcf7_select_form_tag_handler($tag);
                 return self::select($html, $tag);
             }, [
