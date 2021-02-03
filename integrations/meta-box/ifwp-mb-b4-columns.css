@@ -1,6 +1,10 @@
 .rwmb-row:not(:last-of-type) {
     margin-bottom: 1rem;
 }
+.rwmb-field.rwmb-divider-wrapper,
+.rwmb-field.rwmb-hidden-wrapper {
+    margin: 0;
+}
 .rwmb-column .rwmb-label {
     margin-bottom: 0;
 }

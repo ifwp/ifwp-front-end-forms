@@ -2,6 +2,10 @@
 .rwmb-field:not(:last-of-type){
     margin: 0 0 1rem;
 }
+.rwmb-field.rwmb-divider-wrapper,
+.rwmb-field.rwmb-hidden-wrapper {
+    margin: 0;
+}
 /* jQuery validation */
 p.rwmb-error {
     color: #dc3545;
