@@ -141,7 +141,18 @@ if(!class_exists('IFWP_MB_B4')){
         protected static function maybe_parse($html = '', $field = []){
             if(isset($field['type'])){
                 switch($field['type']){
-                    case 'checkbox':
+					case 'autocomplete':
+					case 'date':
+					case 'datetime':
+					case 'text':
+                    case 'email':
+                    case 'number':
+                    case 'password':
+					case 'time':
+                    case 'url':
+                        $html = self::text($html, $field);
+                        break;
+					case 'checkbox':
                         $html = self::checkbox($html, $field);
                         break;
                     case 'checkbox_list':
@@ -171,13 +182,6 @@ if(!class_exists('IFWP_MB_B4')){
                         break;
                     case 'select':
                         $html = self::select($html, $field);
-                        break;
-                    case 'text':
-                    case 'email':
-                    case 'number':
-                    case 'password':
-                    case 'url':
-                        $html = self::text($html, $field);
                         break;
                     case 'textarea':
                         $html = self::textarea($html, $field);

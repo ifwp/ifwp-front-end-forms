@@ -1,3 +1,7 @@
+.rwmb-label,
+.rwmb-label ~ .rwmb-input {
+	width: 100%;
+}
 /* Clearfix for field */
 .rwmb-field:not(:last-of-type){
     margin: 0 0 1rem;
