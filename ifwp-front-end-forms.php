@@ -10,7 +10,7 @@ Network:
 Plugin Name: IFWP Front-end Forms
 Plugin URI: https://github.com/ifwp/ifwp-front-end-forms
 Text Domain: ifwp-front-end-forms
-Version: 0.2.4
+Version: 0.2.4.1
 */
 
 if(defined('ABSPATH')){

@@ -203,7 +203,7 @@ if(!class_exists('IFWP_MB_B4')){
 
         // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-        protected static function overwrite($handle = '', $src = '', $deps = [], $ver = false, $in_footer = false){
+        protected static function overwrite_script($handle = '', $src = '', $deps = [], $ver = false, $in_footer = false){
             if(wp_script_is($handle)){
                 wp_dequeue_script($handle);
             }
@@ -371,12 +371,12 @@ if(!class_exists('IFWP_MB_B4')){
 
         public static function enqueue_scripts(){
             if(!is_admin()){
+                self::overwrite_script('rwmb-select2', 'https://cdn.jsdelivr.net/npm/select2@4.0.10/dist/js/select2.full.min.js', ['jquery'], '4.0.10', true);
+                wp_enqueue_script('jquery-validation-messages-es', 'https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/localization/messages_es.min.js', ['rwmb-validation'], '1.19.3', true);
                 wp_enqueue_style('ifwp-mb-b4-columns', plugin_dir_url(__FILE__) . 'ifwp-mb-b4-columns.css', ['rwmb-columns'], filemtime(plugin_dir_path(__FILE__) . 'ifwp-mb-b4-columns.css'));
                 wp_enqueue_style('ifwp-mb-b4-form', plugin_dir_url(__FILE__) . 'ifwp-mb-b4-form.css', ['mbfs-form'], filemtime(plugin_dir_path(__FILE__) . 'ifwp-mb-b4-form.css'));
                 wp_enqueue_style('ifwp-mb-b4-styles', plugin_dir_url(__FILE__) . 'ifwp-mb-b4-styles.css', ['rwmb'], filemtime(plugin_dir_path(__FILE__) . 'ifwp-mb-b4-styles.css'));
                 wp_enqueue_style('select2-bootstrap', plugin_dir_url(__FILE__) . 'select2-bootstrap.min.css', ['rwmb-select2'], '1.0.0');
-                self::overwrite('rwmb-select2', 'https://cdn.jsdelivr.net/npm/select2@4.0.10/dist/js/select2.full.min.js', ['jquery'], '4.0.10', true);
-                wp_enqueue_script('jquery-validation-messages-es', 'https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/localization/messages_es.min.js', ['rwmb-validation'], '1.19.3', true);
             }
         }
 
