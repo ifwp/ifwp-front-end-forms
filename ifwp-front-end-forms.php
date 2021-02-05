@@ -10,7 +10,7 @@ Network:
 Plugin Name: IFWP Front-end Forms
 Plugin URI: https://github.com/ifwp/ifwp-front-end-forms
 Text Domain: ifwp-front-end-forms
-Version: 0.2.4.1
+Version: 0.2.4.2
 */
 
 if(defined('ABSPATH')){
@@ -32,11 +32,17 @@ if(defined('ABSPATH')){
             require_once(plugin_dir_path(__FILE__) . 'integrations/meta-box/ifwp-mb-b4.php');
         }
         if($load){
+            add_action('init', function(){
+                add_shortcode('ifwp_recaptcha_branding', function($atts = [], $content = ''){
+                    return '<small class="ifwp-recaptcha-branding">' . apply_filters('ifwp_recaptcha_branding', 'This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy" target="_blank">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank">Terms of Service</a> apply.') . '</small>';
+                });
+            });
             add_action('wp_enqueue_scripts', function(){
                 wp_enqueue_script('bs-custom-file-input', 'https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js', ['jquery'], '1.3.4', true);
 				wp_add_inline_script('bs-custom-file-input', 'jQuery(function(){ bsCustomFileInput.init(); });');
                 wp_enqueue_script('ifwp-floating-labels-b4', plugin_dir_url(__FILE__) . 'assets/ifwp-floating-labels-b4.js', ['jquery'], filemtime(plugin_dir_path(__FILE__) . 'assets/ifwp-floating-labels-b4.js'), true);
                 wp_enqueue_style('ifwp-floating-labels-b4', plugin_dir_url(__FILE__) . 'assets/ifwp-floating-labels-b4.css', [], filemtime(plugin_dir_path(__FILE__) . 'assets/ifwp-floating-labels-b4.css'));
+                wp_enqueue_style('ifwp-front-end-forms', plugin_dir_url(__FILE__) . 'assets/ifwp-front-end-forms.css', [], filemtime(plugin_dir_path(__FILE__) . 'assets/ifwp-front-end-forms.css'));
             });
             if(!class_exists('simple_html_dom')){
                 require_once(plugin_dir_path(__FILE__) . 'includes/simple-html-dom-1.9.1/simple_html_dom.php');
