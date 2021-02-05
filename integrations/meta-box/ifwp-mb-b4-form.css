@@ -10,6 +10,12 @@ div.rwmb-confirmation {
 	background-color: #d4edda;
 	color: #155724;
 }
+div.rwmb-error,
+#rwmb-validation-message {
+	border-color: #ffeeba;
+	background-color: #fff3cd;
+	color: #856404;
+}
 .rwmb-button {
 	margin: 1rem .5rem 0 0;
 }
